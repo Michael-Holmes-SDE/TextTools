@@ -20,7 +20,20 @@
 #       or product names of the Licensor, except as required for  	  	  
 #       reasonable and customary use of the source files.  	  	  
 
-
+#TESTS hello(after Hello)
+#TESTS Hello(before hello)
 def sort(args):  	  	  
-    """sort lines of text files"""  	  	  
-    print("TODO: sort lines of text files")  	  	  
+    """sort lines of text files"""
+    allLines = []
+    for file in args:
+        f = open(file)
+        for line in f:
+            allLines.append(line)
+        f.close()
+    allLines.sort()
+    for line in range(len(allLines)):
+        print(allLines[line])
+
+
+# TESTS (PROBABLY WORKS
+sort(["Sorting.py"])

@@ -24,7 +24,7 @@ Deliver:
 *   [ ] Explain the problem this program aims to solve.
     *   A "good" solution is one where running each of these Python tools will yield similar ouputs to ones that the Unix text-tools output given similar inputs, with those being defined above. There should be no crashing and no error messages if input is correct. Ouput should be into the command line and not create a new file unless specified. 
     *   I already know how to do for loops, while loops, prints, debugging, create SDP's, and think my way through a problem.
-    *   Some challenges I see coming up are finding out how to get paste and cut to work, as well as getting the arguments from the command line, running the correct function with that, sending the remaining arguments to that function and splitting up those arguments so the function runs as intended
+    *   Some challenges I see coming up are finding out how to get paste and cut to work (REVISE)
 *   [ ] List all of the data that is used by the program, making note of where it comes from.
 *   **INPUT**	
 	1. cat: files 
@@ -73,6 +73,16 @@ Deliver:
 			close the file
 	2. tac  (will be cat but lowest line first, top line last)
 	def tac(args):
+		initialize list called 'allLines'
+		for each filename in args
+			open a file
+			for each line in the file
+				append line
+			close the file
+		create 'lStart' variable with value len(allLines)
+		while lStart > -1
+			print(allLines[lStart]), with end='' so no newline
+			decrement lStart by 1
 		
 	3. cut  (later)
 	def cut( SOMETHING ):
@@ -107,11 +117,11 @@ Deliver:
 			for each line in the file
 				append line
 			close the file
-		for line in range(len('allLines) - 11, len(allLines) - 1):
-			print(allLines[line]), with end=''
+		for line in range(len(allLines) - lines - 1, len(allLines) - 1):
+			print(allLines[line]), with end='' so no newline
 			
 	8. sort
-	def tail(args, lines = 10):
+	def sort(args):
 		initialize list called allLines
 		for each filename in args
 			open a file
@@ -120,18 +130,9 @@ Deliver:
 			close the file
 		sort the list 'allLines' using Python's sort()
 		for line in range(len(allLines)):
-			print(allLines[line]), with end=''
+			print(allLines[line])
 	
 	9. wc 	 (prints newline, word, and byte counts for each file)
-	
-	10. tt	(NEEDS A LOT MORE WORK)
-	set tool string to sys.argv[2]
-	initialize list called args = []
-	initialize int var i = 3
-	create while loop while i is less than length of sys.argv - 1
-		args.append(sys.argv[i])
-	call tool(args)
-		
 *   Explain what happens in the face of good and bad input.
     *   Write a few specific examples that occur to you, and use them later when testing
 
@@ -146,6 +147,7 @@ Deliver:
 *   [ ] More or less working code.
 *   [ ] Note any relevant and interesting events that happened while you wrote the code.
     *   e.g. things you learned, things that didn't go according to plan
+    *   So far everything has gone according to plan
 
 
 ## Phase 3: Testing and Debugging

@@ -22,10 +22,28 @@
 
 
 def cat(args):  	  	  
-    """concatenate files and print on the standard output"""  	  	  
-    print("TODO: concatenate files and print on the standard output")  	  	  
+    # concatenate files and print on the standard output
+    for file in args:
+        f = open(file)
+        for line in f:
+            print(line, end='')
+        f.close()
 
 
 def tac(args):  	  	  
-    """concatenate and print files in reverse"""  	  	  
-    print("TODO: concatenate and print files in reverse")  	  	  
+    # concatenate and print files in reverse
+    allLines = []
+    for file in args:
+        f = open(file)
+        for line in f:
+            allLines.append(line)
+        f.close()
+    lStart = len(allLines) - 1
+    while lStart > -1:
+        print(allLines[lStart], end='')
+        lStart -= 1
+
+
+# TESTS (SEEMS TO CHECK OUT COMPLETELY)
+cat(["Concatenate.py"])
+tac(["Concatenate.py"])

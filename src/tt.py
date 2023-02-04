@@ -33,10 +33,25 @@ from Sorting import sort
 from WordCount import wc  	  	  
 from Usage import usage  	  	  
 
+"""
+You are only allowed to use sys.argv in this file. You should be passing the necessary information from
+sys.argv in the tt.py driver program to the Python functions you defined
+"""
 
 if len(sys.argv) < 2:  	  	  
     usage()  	  	  
     sys.exit(1)  	  	  
 else:  	  	  
     print("TODO: determine which tool the user has invoked")  	  	  
-    print("TODO: call on that tool, forwarding any remaining arguments to it")  	  	  
+    print("TODO: call on that tool, forwarding any remaining arguments to it")
+    tool = sys.argv[2]
+    print(tool)  # TEST
+    args = []
+    i = 3
+    while i < len(sys.argv) - 1:
+        args.append(sys.argv[i])
+
+    if tool == "cat":
+        cat(args)
+    # if cat:
+    #    cat(["Concatenate.py"])  # Prelim

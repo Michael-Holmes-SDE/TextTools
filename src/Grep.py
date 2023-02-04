@@ -21,6 +21,18 @@
 #       reasonable and customary use of the source files.  	  	  
 
 
-def grep(args):  	  	  
-    """print lines that match patterns"""  	  	  
-    print("TODO: print lines that match patterns")  	  	  
+"""def grep(args):
+    print lines that match patterns
+"""
+
+
+def grep(args, search):
+    for file in args:
+        f = open(file)
+        for line in f:
+            if search in line:
+                print(line, end='')
+        f.close()
+
+
+grep(["Grep.py"], "print")
