@@ -26,7 +26,7 @@
 """
 
 
-def grep(args, search):
+def grep(args, search): #(add in exclusive grep (with -v before SEARCH) that prints every line without SEARCH)
     for file in args:
         f = open(file)
         for line in f:
@@ -35,4 +35,4 @@ def grep(args, search):
         f.close()
 
 
-grep(["Grep.py"], "print")
+# grep(["Grep.py"], "print")

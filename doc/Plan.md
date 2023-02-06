@@ -78,7 +78,26 @@ Deliver:
 	def cut( SOMETHING ):
 		
 	4. paste (later)
-	def paste( SOMETHING):
+	def paste(args):
+		create list toPrint
+		create int variable lineNum = 0
+		"""create int variable maxLines = 1
+		for files in args
+			open a file
+			if length of file is greater than maxLines
+				maxLines = length of file
+		while lineNum is less than maxLines + 1"""
+		create int variable fileAmt = length of args 
+		while lineNum if less than 30
+			create int variable fileCrnt = 0
+			while fileCrnt < fileAmt + 1
+				open a file from args[fileCrnt]	
+				append file line[lineNum] to toPrint
+				increment fileCrnt by 1
+			increment lineNum by 1
+		for line in toPrint
+			print(line, end=", ") to make comma separated lines
+			
 		
 	5. grep  (same as cat but with an if statement for the keywords searching for by the print statement
 	def grep(args, search):
@@ -122,15 +141,11 @@ Deliver:
 		for line in range(len(allLines)):
 			print(allLines[line]), with end=''
 	
-	9. wc 	 (prints newline, word, and byte counts for each file)
-	
-	10. tt	(NEEDS A LOT MORE WORK)
-	set tool string to sys.argv[2]
-	initialize list called args = []
-	initialize int var i = 3
-	create while loop while i is less than length of sys.argv - 1
-		args.append(sys.argv[i])
-	call tool(args)
+	9. wc 	 (prints newline, word, and byte counts for each file)(NEEDS TO BE WORKED OUT)
+	10. tt (NEEDS A LITTLE MORE WORK)
+	set tool string to sys.argv[1]
+	if variable tool is equal to "TOOL NAME" (for every tool)
+		call tool(args for tool)
 		
 *   Explain what happens in the face of good and bad input.
     *   Write a few specific examples that occur to you, and use them later when testing

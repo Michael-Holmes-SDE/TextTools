@@ -53,5 +53,5 @@ def tail(args, lines=10):
 
 
 # TESTS (SEEM TO CHECK OUT COMPLETELY)
-head(["Partial.py"], 20)
-tail(["Partial.py"], 5)
+# head(["Partial.py"], 20)
+# tail(["Partial.py"], 5)

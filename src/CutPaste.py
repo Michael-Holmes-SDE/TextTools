@@ -22,10 +22,34 @@
 
 
 def cut(args):  	  	  
-    """remove sections from each line of files"""  	  	  
-    print("TODO: remove sections from each line of files")  	  	  
+    # remove sections from each line of files
+    print("This isn't ready yet")
+
+
 
 
 def paste(args):  	  	  
-    """merge lines of files"""  	  	  
-    print("TODO: merge lines of files")  	  	  
+    # merge lines of files
+    toPrint = ["Nothing appended"]  # test
+    lineNum = 0
+    """maxLines = 1
+    for file in args:
+        f = open(file)
+        if len(f) > maxLines:
+            maxLines = len(f)
+        print(len(f))"""
+    fileAmt = len(args)
+    while lineNum < 30:  #(while lineNum < maxLines + 1)
+        fileCrnt = 0
+        while fileCrnt < fileAmt:
+            f = open(args[fileCrnt])
+            for line in f:
+                if line == lineNum:
+                    toPrint.append(line)
+                    print(line)  # test
+            fileCrnt += 1
+            print("fileCrnt is: " + str(fileCrnt))  # test
+        lineNum += 1
+        print("lineNum is: "+ str(lineNum))
+    for line in toPrint:
+        print(line, end=", ")

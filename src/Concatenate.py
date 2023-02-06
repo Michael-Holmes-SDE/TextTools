@@ -45,5 +45,5 @@ def tac(args):
 
 
 # TESTS (SEEMS TO CHECK OUT COMPLETELY)
-cat(["Concatenate.py"])
-tac(["Concatenate.py"])
+#cat(["Concatenate.py"])
+#tac(["Concatenate.py"])

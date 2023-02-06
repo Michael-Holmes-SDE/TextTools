@@ -42,16 +42,29 @@ if len(sys.argv) < 2:
     usage()  	  	  
     sys.exit(1)  	  	  
 else:  	  	  
-    print("TODO: determine which tool the user has invoked")  	  	  
-    print("TODO: call on that tool, forwarding any remaining arguments to it")
-    tool = sys.argv[2]
+    # print("TODO: determine which tool the user has invoked")
+    # print("TODO: call on that tool, forwarding any remaining arguments to it")
+    tool = sys.argv[1]
     print(tool)  # TEST
-    args = []
-    i = 3
-    while i < len(sys.argv) - 1:
-        args.append(sys.argv[i])
+    print(type(sys.argv[2]))
 
     if tool == "cat":
-        cat(args)
-    # if cat:
-    #    cat(["Concatenate.py"])  # Prelim
+        cat(sys.argv[2:])
+    if tool == "tac":
+        tac(sys.argv[2:])
+    """if tool == "cut":
+        tac(sys.argv[something])"""
+    if tool == "paste":
+        paste(sys.argv[2:])
+    if tool == "grep":
+        grep(sys.argv[3:], sys.argv[2])
+    if tool == "head":
+        sys.argv[2] = int(sys.argv[2])
+        #if int(sys.argv[2]) is int:
+        head(sys.argv[3:], int(sys.argv[2]))
+        #else: head(sys.argv[2:])
+    if tool == "tail":
+        if sys.argv[2] is int:
+            tail(sys.argv[3:], int(sys.argv[2]))
+        else:
+            tail(sys.argv[2:])

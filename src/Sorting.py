@@ -35,5 +35,5 @@ def sort(args):
         print(allLines[line])
 
 
-# TESTS (PROBABLY WORKS
-sort(["Sorting.py"])
+# TESTS (I THINK IT WORKS)
+# sort(["Sorting.py"])
