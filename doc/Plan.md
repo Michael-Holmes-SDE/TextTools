@@ -14,7 +14,7 @@ Deliver:
     *   The tools should do the following: 
 	1. cat: Connects the inputted files and prints them to the command line top to bottom(line-by-line)
 	2. tac: Connects the inputted files and prints them to the command line bottom to top(line-by-line)
-	3. cut: DON'T UNDERSTAND YET
+	3. cut: Extracts columns from a CSV file, only the first column unless columns are specified. The -f flag should be used, and the columns should be printed comma separated if multiple columns are specified.  
 	4. paste: Opens each file and stores each file object in a list, then a for loop reads one line from one file and prints with a comma instead of a newline, then prints a line from the other file with a comma instead of a newline, and if those are all the files there is a newline and it starts with printing line two from the first file with a comma at the end, then the second line from file two with a newline if that is the last file 
 	5. grep: Prints all lines from inputted files that contain the exact string given in '[OPTIONS]'
         6. head: Prints the top 10 lines of the file(s) (unless another amount is specified with -n in '[OPTIONS]')
@@ -29,17 +29,17 @@ Deliver:
 *   **INPUT**	
 	1. cat: files 
 	2. tac: files
-	3. cut: DO ONCE I UNDERSTAND
+	3. cut: files, -f identifier, [OPTIONAL] columns to print(non-inclusive of end number, and separated by a comma)
 	4. paste: files 
 	5. grep: files and the string to search for, inputted before the file names
 	6. head: files
 	7. tail: files 
 	8. sort: files
-	9. wc: files, output is 
+	9. wc: files
 *   **OUTPUT**
 	1. cat: the text of the two files printed top-to-bottom
 	2. tac: the text of the two files printed bottom-to-top, line-by-line
-	3. cut: DO ONCE I UNDERSTAND
+	3. cut: specified or the first column of the file(s) given, comma separated if multiple columns
 	4. paste: one row from each file in each row, separated by commas(file1row1, file2row1, \n, file1row2, file2row2, etc.)
 	5. grep: all the lines in the file(s) that contain that exact string
 	6. head: the first 10 (or another specified amount) of lines of those combined files
@@ -73,30 +73,68 @@ Deliver:
 			close the file
 	2. tac  (will be cat but lowest line first, top line last)
 	def tac(args):
+		create empty array allLines
+		for file in args
+			open file
+			for line in file
+				append line to allLines array
+			close file
+		create int variable lStart equal to the length of allLines array - 1
+		while int lStart is greater than -1
+			print allLines[lStart] with end=""
+			decrement lStart by 1
 		
-	3. cut  (later)
-	def cut( SOMETHING ):
-		
+	3. cut
+	def cut(args, -f=false(make true if found when sending from tt.py), columns(optional)=0 by default):
+		make empty list colList
+		if columns is equal to one
+			colList = [1]
+		elif -f is True and columns are not equal to one
+			list arr is equal to columns split using .split(",")
+			make colList with all elements from arr that are greater than 0
+			sort colList
+		if length of colList is zero
+			print("Error: A comma-separated field specification is required")
+		for file in args
+			open file
+			for line in file
+				strip the line of newlines
+				make list arr equal to the line split using .split(", ")
+				for i in range of the length of colList
+					if i is not equal to the length of colList - 1
+						print arr[colList[i] - 1] with end=", "
+					else
+						print arr[colList[i] - 1] with end=""
+				print newline
+				
 	4. paste (later)
 	def paste(args):
-		create list toPrint
-		create int variable lineNum = 0
-		"""create int variable maxLines = 1
+		create blank array allArrays
 		for files in args
+			create blank array for file
 			open a file
-			if length of file is greater than maxLines
-				maxLines = length of file
-		while lineNum is less than maxLines + 1"""
-		create int variable fileAmt = length of args 
-		while lineNum if less than 30
-			create int variable fileCrnt = 0
-			while fileCrnt < fileAmt + 1
-				open a file from args[fileCrnt]	
-				append file line[lineNum] to toPrint
-				increment fileCrnt by 1
+			for lines in file
+				create string equal to the line stripped using line.strip()
+				append line to array
+			append array to allArrays
+		create int variable maxLines = 0
+		for all arrays in allArrays
+			if length of array for file is greater than maxLines
+				maxLines = length of array
+		create int variable lineNum = 0
+		while lineNum is less than maxLines
+			for all arrays in allArrays
+				if lineNum < length of array
+					if array is the last in allArrays
+						print array[lineNum] with a newline
+					else
+						print array[lineNum] with end=", "
+				else
+					if array is the last in allArrays
+						print a newline
+					else
+						print blank with end=", "
 			increment lineNum by 1
-		for line in toPrint
-			print(line, end=", ") to make comma separated lines
 			
 		
 	5. grep  (same as cat but with an if statement for the keywords searching for by the print statement
@@ -142,6 +180,8 @@ Deliver:
 			print(allLines[line]), with end=''
 	
 	9. wc 	 (prints newline, word, and byte counts for each file)(NEEDS TO BE WORKED OUT)
+
+
 	10. tt (NEEDS A LITTLE MORE WORK)
 	set tool string to sys.argv[1]
 	if variable tool is equal to "TOOL NAME" (for every tool)

@@ -21,35 +21,100 @@
 #       reasonable and customary use of the source files.  	  	  
 
 
-def cut(args):  	  	  
+def cut(args):
     # remove sections from each line of files
-    print("This isn't ready yet")
+    # print("This isn't ready yet")
+    # dashF=False, columns=1
+    print(args)  # test
+    beginning = 0
+    if args[0] == "-f":
+        dashF = True
+        beginning += 1
+    else:
+        dashF = False
+    if len(args) >= 2:
+        if "," in args[1]:
+            columns = args[1]
+            beginning += 1
+    else:
+        columns = 1
+    files = args[beginning:]
+    print("files are: " + str(files)) # test
 
-
-
+    """print("made it in") # test
+            print(sys.argv)
+            length = len(sys.argv)
+            beginning = 2
+            if "-f" in sys.argv:
+                f = True
+                beginning += 1
+            else: f = False
+            columns = False
+            if "," in sys.argv:
+                print("',' found") # test
+                columns = sys.argv[:length - 1]
+                beginning += 1
+            print("',' not found") # test
+            print("length = " + str(length))  # test
+            print("beginning is: " + str(beginning))  # test
+            files = sys.argv[beginning:length]
+            print("files: " + str(files)) # test
+            if columns:
+                cut(files, f, columns)
+            else: cut(files, f)"""
+    colList = []
+    if columns == 1:
+        colList = [1]
+    elif dashF and columns != 1:
+        arr = columns.split(",")
+        colList = [int(x) for x in arr if int(x) > 0]
+        colList.sort()
+        print("colList is: " + str(colList))  # test
+    if len(colList) == 0:
+        print("Error: A comma-separated field specification is required")
+    for file in files:
+        f = open(file)
+        for line in f:
+            line = line.strip()
+            arr = line.split(", ")
+            for i in range(len(colList)):
+                #print("arr" + str(arr)) # test
+                if i <= len(colList) - 2:
+                    #print("i <=") # test
+                    print(arr[colList[i] - 1], end=", ")
+                else:
+                    # print("else")  # test
+                    print(arr[colList[i] - 1], end="")
+            print()
+# TEST BELOW
+# cut(["CUT TEST FILE"])
 
 def paste(args):  	  	  
     # merge lines of files
-    toPrint = ["Nothing appended"]  # test
-    lineNum = 0
-    """maxLines = 1
+    allArrays = []
     for file in args:
+        array = []
         f = open(file)
-        if len(f) > maxLines:
-            maxLines = len(f)
-        print(len(f))"""
-    fileAmt = len(args)
-    while lineNum < 30:  #(while lineNum < maxLines + 1)
-        fileCrnt = 0
-        while fileCrnt < fileAmt:
-            f = open(args[fileCrnt])
-            for line in f:
-                if line == lineNum:
-                    toPrint.append(line)
-                    print(line)  # test
-            fileCrnt += 1
-            print("fileCrnt is: " + str(fileCrnt))  # test
+        for line in f:
+            string = line.strip()
+            array.append(string)
+        allArrays.append(array)
+    maxLines = 0
+    for array in allArrays:
+        if len(array) > maxLines:
+            maxLines = len(array)
+    lineNum = 0
+    while lineNum < maxLines:
+        for array in allArrays:
+            if lineNum < len(array):
+                if array == allArrays[len(allArrays) - 1]:
+                    print(array[lineNum])
+                else:
+                    print(array[lineNum], end=", ")
+            else:
+                if array == allArrays[len(allArrays) - 1]:
+                    print()
+                else:
+                    print("", end=", ")
         lineNum += 1
-        print("lineNum is: "+ str(lineNum))
-    for line in toPrint:
-        print(line, end=", ")
+

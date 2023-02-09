@@ -52,11 +52,32 @@ else:
         cat(sys.argv[2:])
     if tool == "tac":
         tac(sys.argv[2:])
-    """if tool == "cut":
-        tac(sys.argv[something])"""
+    if tool == "cut":  # possibly needs -f
+        """print("made it in") # test
+        print(sys.argv)
+        length = len(sys.argv)
+        beginning = 2
+        if "-f" in sys.argv:
+            f = True
+            beginning += 1
+        else: f = False
+        columns = False
+        if "," in sys.argv:
+            print("',' found") # test
+            columns = sys.argv[:length - 1]
+            beginning += 1
+        print("',' not found") # test
+        print("length = " + str(length))  # test
+        print("beginning is: " + str(beginning))  # test
+        files = sys.argv[beginning:length]
+        print("files: " + str(files)) # test
+        if columns:
+            cut(files, f, columns)
+        else: cut(files, f)"""
+        cut(sys.argv[2:])
     if tool == "paste":
         paste(sys.argv[2:])
-    if tool == "grep":
+    if tool == "grep":  # possible needs -v
         grep(sys.argv[3:], sys.argv[2])
     if tool == "head":
         sys.argv[2] = int(sys.argv[2])
