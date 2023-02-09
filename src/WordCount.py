@@ -21,7 +21,30 @@
 #       reasonable and customary use of the source files.  	  	  
 
 
-def wc(files):  	  	  
-    """print newline, word, and byte counts for each file"""  	  	  
-    print("TODO: print newline, word, and byte counts for each file")
-    # use formatting (str.format) or (printf())
+def wc(files):
+    allNewLines = []
+    allWords = []
+    allCharacters = []
+    for file in files:
+        f = open(file)
+        newLines = 0
+        words = 0
+        characters = 0
+        for line in f:
+            newLines += 1
+            wordsList = line.split()
+            words += len(wordsList)
+            characters += len(line)
+        allNewLines.append(newLines)
+        allWords.append(words)
+        allCharacters.append(characters)
+    for i in range(len(allNewLines)):
+        print(str(allNewLines[i]).rjust(7), end="")
+        print(str(allWords[i]).rjust(7), end="")
+        print(str(allCharacters[i]).rjust(7), end="")
+        print(str(files[i]).rjust(20))
+    if len(allNewLines) > 1:
+        print(str(sum(allNewLines)).rjust(7), end="")
+        print(str(sum(allWords)).rjust(7), end="")
+        print(str(sum(allCharacters)).rjust(7), end="")
+        print("total".rjust(12))

@@ -32,16 +32,17 @@ def cat(args):
 
 def tac(args):  	  	  
     # concatenate and print files in reverse
-    allLines = []
     for file in args:
+        allLines = []
         f = open(file)
         for line in f:
             allLines.append(line)
+            lStart = len(allLines) - 1
+        while lStart > -1:
+            print(allLines[lStart], end='')
+            lStart -= 1
         f.close()
-    lStart = len(allLines) - 1
-    while lStart > -1:
-        print(allLines[lStart], end='')
-        lStart -= 1
+
 
 
 # TESTS (SEEMS TO CHECK OUT COMPLETELY)

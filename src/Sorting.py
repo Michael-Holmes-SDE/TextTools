@@ -20,8 +20,6 @@
 #       or product names of the Licensor, except as required for  	  	  
 #       reasonable and customary use of the source files.  	  	  
 
-#TESTS hello(after Hello)
-#TESTS Hello(before hello)
 def sort(args):  	  	  
     """sort lines of text files"""
     allLines = []
@@ -32,8 +30,4 @@ def sort(args):
         f.close()
     allLines.sort()
     for line in range(len(allLines)):
-        print(allLines[line])
-
-
-# TESTS (I THINK IT WORKS)
-# sort(["Sorting.py"])
+        print(allLines[line], end="")

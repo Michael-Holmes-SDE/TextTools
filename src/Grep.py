@@ -20,19 +20,14 @@
 #       or product names of the Licensor, except as required for  	  	  
 #       reasonable and customary use of the source files.  	  	  
 
-
-"""def grep(args):
-    print lines that match patterns
-"""
-
-
-def grep(args, search): #(add in exclusive grep (with -v before SEARCH) that prints every line without SEARCH)
+def grep(args, search, dashV):
     for file in args:
         f = open(file)
         for line in f:
-            if search in line:
-                print(line, end='')
+            if not dashV:
+                if search in line:
+                    print(line, end='')
+            else:
+                if search not in line:
+                    print(line, end='')
         f.close()
-
-
-# grep(["Grep.py"], "print")

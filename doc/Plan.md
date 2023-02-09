@@ -7,7 +7,7 @@
 
 Deliver:
 
-*   [ ] Re-write the instructions in your own words.
+*   [X] Re-write the instructions in your own words.
     *   If you don't do this, you won't know what you're supposed to do!
     *   Don't leave out details!
     *   The customer wants us to create Unix text-processing tools using Python. The main program 'tt.py' will take input from the command line in the form 'python src/tt.py TOOL [OPTIONS] FILENAME...' and use its input to choose which tool should be used, passing on the rest of the input to that tool.
@@ -21,11 +21,11 @@ Deliver:
 	7. tail: Prints the bottom 10 lines of the file(s) (unless another amount is specified with -n in '[OPTIONS]')
 	8. sort: Prints the lines of all file(s) in lexical order (use built in 'sort()' function and make a list of all lines to sort, then print the sorted list)
 	9. wc: Prints the number of lines, words, and characters (lines are based on the number of '\n' + 1, words are the amount of white-spaces + 1, and characters are the length of all the arrays minus the whitespace or amount of words)
-*   [ ] Explain the problem this program aims to solve.
+*   [X] Explain the problem this program aims to solve.
     *   A "good" solution is one where running each of these Python tools will yield similar ouputs to ones that the Unix text-tools output given similar inputs, with those being defined above. There should be no crashing and no error messages if input is correct. Ouput should be into the command line and not create a new file unless specified. 
     *   I already know how to do for loops, while loops, prints, debugging, create SDP's, and think my way through a problem.
     *   Some challenges I see coming up are finding out how to get paste and cut to work, as well as getting the arguments from the command line, running the correct function with that, sending the remaining arguments to that function and splitting up those arguments so the function runs as intended
-*   [ ] List all of the data that is used by the program, making note of where it comes from.
+*   [X] List all of the data that is used by the program, making note of where it comes from.
 *   **INPUT**	
 	1. cat: files 
 	2. tac: files
@@ -47,9 +47,9 @@ Deliver:
 	8. sort: lines from those files sorted in lexical order
 	9. wc: the number of lines, words, and characters in those files
 
-*   [ ] List the algorithms that will be used (but don't write them yet).
+*   [X] List the algorithms that will be used (but don't write them yet).
     *   sort()
-    *   MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE
+    *   usage()
 
 ## Phase 1: Design
 *(30% of your effort)*
@@ -58,21 +58,22 @@ Deliver:
 
 Deliver:
 
-*   [ ] Function signatures that include:
+*   [X] Function signatures that include:
     *   Descriptive names.
     *   Parameter lists.
     *   Documentation strings that explain its purpose and types of inputs and outputs.
-*   [ ] Pseudocode that captures how each function works.
+*   [X] Pseudocode that captures how each function works.
     *   Pseudocode != source code.  Do not paste your finished source code into this part of the plan.
     	1. cat
-	def cat(args):
+	def cat(args):  # Prints each file passed into args
 		for each filename in args
 			open a file
 			for each line in the file
 				print(line), with end='' so no newline
 			close the file
-	2. tac  (will be cat but lowest line first, top line last)
-	def tac(args):
+
+	2. tac    
+	def tac(args):  # Prints each file passed into args bottom to top
 		create empty array allLines
 		for file in args
 			open file
@@ -84,31 +85,41 @@ Deliver:
 			print allLines[lStart] with end=""
 			decrement lStart by 1
 		
-	3. cut
-	def cut(args, -f=false(make true if found when sending from tt.py), columns(optional)=0 by default):
-		make empty list colList
-		if columns is equal to one
+	3. cut 
+	def cut(args):  # Prints specified columns from a CSV file, specified lines and files passed into args
+		initiate int var beginning = 0
+		set new boolean var dashF = False
+		if the first element in args is "-f"
+			set new var dashF = True
+			increment beginning by 1
+		set new int var columns = 1
+		if the length of args is greater than or equal to 2
+			set var columns to the 2nd element in args
+			increment beginning by 1
+		make new list files = args[beginning:]
+		create new empty list colList
+		if var columns is 1
 			colList = [1]
-		elif -f is True and columns are not equal to one
-			list arr is equal to columns split using .split(",")
-			make colList with all elements from arr that are greater than 0
+		else if dashF is True and columns is not 1
+			var arr = columns split by ","
+			colList is all values in arr that are greater than 0
 			sort colList
-		if length of colList is zero
-			print("Error: A comma-separated field specification is required")
+		if colList is empty
+			print "Error: A comma-separated field specification is required"
 		for file in args
 			open file
 			for line in file
-				strip the line of newlines
-				make list arr equal to the line split using .split(", ")
-				for i in range of the length of colList
-					if i is not equal to the length of colList - 1
-						print arr[colList[i] - 1] with end=", "
-					else
-						print arr[colList[i] - 1] with end=""
+				set the line equal to itself stripped of whitespace
+				set var arr to line splitted by ","
+				for all values in colList
+					if not the last column
+						print value of line from the selected column with line end =","
+					if the last column 
+						print value of line from the selected column with line end = ""
 				print newline
-				
-	4. paste (later)
-	def paste(args):
+		
+	4. paste
+	def paste(args):   # Prints files passed into args with comma-separated lines, each line containing the corresponding line of the file
 		create blank array allArrays
 		for files in args
 			create blank array for file
@@ -134,18 +145,18 @@ Deliver:
 						print a newline
 					else
 						print blank with end=", "
-			increment lineNum by 1
-			
+			increment lineNum by 1			
 		
-	5. grep  (same as cat but with an if statement for the keywords searching for by the print statement
-	def grep(args, search):
+	5. grep  
+	def grep(args, search):  # Prints all lines of files passed into it with args that contain what's in the 'search' parameter
 		for each filename in args
 			open a file
 			for each line in the file
 				if line contains 'search';
 					print(line), with end='' so no newline
 			close the file
-	6. head  (same as cat but up to 10 lines)
+
+	6. head  (same as cat but up to 10 lines, or another specified amount)
 	def head(args, lines = 10):	
 		for each filename in args
 	                open a file
@@ -156,7 +167,8 @@ Deliver:
 				print(line), with end='' so no newline
 				increment 'count' by 1
                         close the file
-	7. tail  (same as head but the bottom 10 lines) (PRELIMINARY)
+
+	7. tail  (same as head but the bottom 10 lines, or another specified amount)
 	def tail(args, lines = 10):
 		initialize list called allLines
 		for each filename in args
@@ -168,7 +180,7 @@ Deliver:
 			print(allLines[line]), with end=''
 			
 	8. sort
-	def tail(args, lines = 10):
+	def sort(args):  # Prints lines of files in order according to ASCII value of first character in the line
 		initialize list called allLines
 		for each filename in args
 			open a file
@@ -179,17 +191,67 @@ Deliver:
 		for line in range(len(allLines)):
 			print(allLines[line]), with end=''
 	
-	9. wc 	 (prints newline, word, and byte counts for each file)(NEEDS TO BE WORKED OUT)
+	9. wc 	 
+	def wc(args)  # prints newline, word, and byte counts for each file
+		All getting amounts will be done at the same time, but for better readability
+			here they will be defined separately
+		
+		for each file in args
+			open file
+			initiate var newLines = 0
+			initiate var words = 0
+			initiate var characters = 0
+	
+		how to get newline amount
+			initialize empty list allNewLines
+			for each filename in args
+				open file
+				initialize int var newLines equal to 0
+				for each line in file
+					newLines += 1
+				append var newLines to list allNewLines
+		
+		how to get word count
+			initialize empty list allWords
+			for each filename in args
+				open file
+				initialize int var words equal to 0
+				for each line in file
+					initiate var wordsList = the line splitted
+					add length of wordsList to var words
+				append var words to list allWords
+	
+		how to get character count
+			initialize empty list allCharacters
+			for each filename in args
+				open file
+				initialize int var characters equal to 0
+				for each line in file
+					characters += getsizeof() the line
+				append var characters to list allCharacters
+		
+		printing everything
+			for i in range(allNewLines)
+				formatted print allNewLines[i] with no newline, right justed 7 spaces
+				formatted print allWords[i] with no newline, right justed 7 spaces
+				formatted print allCharacters with no newline, right justed 7 spaces
+				formatted print args[i] with newline, right justed 15 spaces
+			if length of allNewLines list is greater than 1
+				formatted print the sum of allNewLine with no newline, right justed 7 spaces
+				formatted print the sum of allWords with no newline, right justed 7 spaces
+				formatted print the sum of allCharacters with no newline, right justed 7 spaces
+				formatted print "total" with no newline, right justed 12 spaces
+			
 
-
-	10. tt (NEEDS A LITTLE MORE WORK)
+	10. tt  # The driver program
 	set tool string to sys.argv[1]
 	if variable tool is equal to "TOOL NAME" (for every tool)
 		call tool(args for tool)
 		
 *   Explain what happens in the face of good and bad input.
     *   Write a few specific examples that occur to you, and use them later when testing
-
+    *   When there is good input, everything goes as expected as outlined in Phase 0
+    *   Where there is bad input, Usage() will give an error and end the program
 
 ## Phase 2: Implementation
 *(15% of your effort)*
@@ -198,9 +260,10 @@ Deliver:
 
 Deliver:
 
-*   [ ] More or less working code.
-*   [ ] Note any relevant and interesting events that happened while you wrote the code.
+*   [X] More or less working code.
+*   [X] Note any relevant and interesting events that happened while you wrote the code.
     *   e.g. things you learned, things that didn't go according to plan
+    *   I learned that sys.argv is a list, which helped with separating parameters given into the command line, I learned again that strings can be separated into a list through a given value, and I learned how to make python files run from the command line correctly and given different parameters
 
 
 ## Phase 3: Testing and Debugging
@@ -208,24 +271,31 @@ Deliver:
 
 Deliver:
 
-*   [ ] A set of test cases that you have personally run on your computer.
+*   [X] A set of test cases that you have personally run on your computer.
     *   Include a description of what happened for each test case.
     *   For any bugs discovered, describe their cause and remedy.
     *   Write your test cases in plain language such that a non-coder could run them and replicate your experience.
 
+    *   I ran the test cases in the scripts directory to test my modules
+    *   How to access the test cases:
+	1. Navigate to the main directory of the program(/cs1440-assn2) in 2 separate command lines
+	2. In one of the command lines, type without quotation marks "cd scripts" and press ENTER
+	3. In the same command line, type without quote marks "ls" and press ENTER
+	4. From the other command line, type without quote marks "scripts/" then the name of one of the files that shows up that includes the name of the module you want to test, including the .sh at the end, and press ENTER
+	5. Compare the output to the test cases in GitHub
 
 ## Phase 4: Deployment
 *(5% of your effort)*
 
 Deliver:
 
-*   [ ] Your repository is pushed to GitLab.
-*   [ ] **Verify** that your final commit was received by browsing to its project page on GitLab.
+*   [X] Your repository is pushed to GitLab.
+*   [X] **Verify** that your final commit was received by browsing to its project page on GitLab.
     *   Ensure the project's URL is correct.
     *   Review the project to ensure that all required files are present and in correct locations.
     *   Check that unwanted files have not been included.
     *   Make any final touches to documentation, including the Sprint Signature and this Plan.
-*   [ ] **Validate** that your submission is complete and correct by cloning it to a new location on your computer and re-running it.
+*   [X] **Validate** that your submission is complete and correct by cloning it to a new location on your computer and re-running it.
 	*	Run your program from the command line so you can see how it will behave when your grader runs it.  **Running it in PyCharm is not good enough!**
     *   Run through your test cases to avoid nasty surprises.
     *   Check that your documentation files are all present.
@@ -237,17 +307,21 @@ Spend a few minutes writing thoughtful answers to these questions.  They are mea
 
 Deliver:
 
-*   [ ] Write brief and honest answers to these questions:
+*   [X] Write brief and honest answers to these questions:
     *   What parts of your program are sloppily written and hard to understand?
-        *   Are there parts of your program which you aren't quite sure how/why they work?
-        *   If a bug is reported in a few months, how long would it take you to find the cause?
+        *   I feel like I know how everything in this program works
+	*   If a bug is reported in a few months, it would take me about 30 minutes to find out why
     *   Will your documentation make sense to...
         *   ...anybody besides yourself?
+	*   I believe so
         *   ...yourself in six month's time?
+	*   Definitely
     *   How easy will it be to add a new feature to this program in a year?
+	* It should be quite easy to add a new feature because everything is separated into modules
     *   Will your program continue to work after upgrading...
         *   ...your computer's hardware?
         *   ...the operating system?
         *   ...to the next version of Python?
-*   [ ] Make one final commit and push your **completed** Software Development Plan to GitLab.
-*   [ ] Respond to the **Assignment Reflection Survey** on Canvas.
+	*   This program will continue to work after upgrading any or all of the above
+*   [X] Make one final commit and push your **completed** Software Development Plan to GitLab.
+*   [X] Respond to the **Assignment Reflection Survey** on Canvas.

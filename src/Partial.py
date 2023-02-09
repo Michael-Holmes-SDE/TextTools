@@ -20,12 +20,7 @@
 #       or product names of the Licensor, except as required for  	  	  
 #       reasonable and customary use of the source files.  	  	  
 
-
-"""def head(args):
-    output the first part of files
-    print("TODO: output the first part of files")
-"""
-def head(args, lines=10):
+def head(args, lines):
     for file in args:
         f = open(file)
         i = 0
@@ -37,11 +32,7 @@ def head(args, lines=10):
         f.close()
 
 
-"""def tail(args):  	  	  
-    output the last part of files  	  	  
-    print("TODO: output the last part of files")  	  	  
-"""
-def tail(args, lines=10):
+def tail(args, lines):
     allLines = []
     for file in args:
         f = open(file)
@@ -50,8 +41,3 @@ def tail(args, lines=10):
         f.close()
     for line in range(len(allLines) - lines - 1, len(allLines) - 1):
         print(allLines[line], end='')
-
-
-# TESTS (SEEM TO CHECK OUT COMPLETELY)
-# head(["Partial.py"], 20)
-# tail(["Partial.py"], 5)
